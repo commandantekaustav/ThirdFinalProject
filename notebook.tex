@@ -1,0 +1,1848 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{documentation}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Data Analysis and Morphological Classification of Galaxies from SDSS
+
+    Introduction:
+
+Astronomy dates back as far as the ancient Indians, the Egyptians, the
+Mayans, the Inkas and the Mesopotemians. Astronomy was used as a means
+of keeping track of time and predicting future events which was achieved
+through a combination of religion, astrology and the meticulous study of
+the positions and motions of various celestial bodies. It is generally
+believed that priests were the first professional astronomers, the
+pioneers of the field. The real renaissance of astronomy began in the
+1500s when Nicholaus Copernicus, a Polish university-trained Catholic
+priest, mathematician and astronomer, proposed a heliocentric model of
+our Universe in which the Sun, rather than the Earth, is in the center
+of the Solar System. Figure in the left graphically illustrates this
+model. Just before he died in 1543, he published a book entitled
+\emph{De revolutionibus orbium coelestium (On the Revolutions of the
+Celestial Spheres)} which became one of the most important contributions
+towards the scientific revolution.
+
+Terminologies:
+
+\textbf{Galaxy:} A galaxy is defined as a populous system of stars,
+dust, dark matter and gases that are all bound together by gravity.
+There are numerous sizes that a galaxy can possess in terms of the
+number of stars that live within it, ranging anywhere from 10 million to
+10 trillion stars. There are two common general shapes that a galaxy can
+take, either spiral or elliptical. Many variations within each also
+exist as well as less-common shapes such as toothpicks or rings.
+\emph{\textbf{Messier 64 (M64)} - A spiral galaxy, the result of a
+collision between two galaxies. Due to the spectacular dark band of dust
+surrounding the galaxy's bright nuclues, its been nicknamed by some as
+the Evil Eye galaxy (credit: hubblesite.org).} \textbf{Star:} A star,
+our Sun being a perfect example, is essentially a sphere of immensely
+hot gas, mainly that of hydrogen, partly helium and with minute traces
+of other various gases. Within its core, an incredible amount of energy
+is generated through the process of fusion in which smaller atoms smash
+together at great speeds to form larger atoms. Likewise with galaxies,
+astronomers also have a process for classifying stars. They are grouped
+into spectral types. By spectral, we refer to the temperature and
+brightness of the surfaces of the stars. \textbf{Quasar:} a massive and
+extremely remote celestial object, emitting exceptionally large amounts
+of energy, and typically having a starlike image in a telescope. It has
+been suggested that quasars contain massive black holes and may
+represent a stage in the evolution of some galaxies.\emph{(Above figure
+contains some of the clearest light views of quasar taken till date.)
+(credit: nasa.gov)} \textbf{Morphology:} \textbf{\emph{Galaxy
+morphology}} \emph{is a visual grouping system used by astronomers for
+galaxy classification}. Almost a hundred years have now passed since it
+was first discovered that galaxies were independent systems subjected to
+morphology and mergers. \emph{The most famous system for morphological
+classification, known as the} \textbf{\emph{Hubble Tuning Fork System}},
+\emph{was proposed by American astronomer \textbf{Edwin Powell Hubble}
+in the year 1936.} In 1936, when Hubble released his book Realm of the
+Nebulae, that research in the area became abundant and the study of
+galaxy morphology became a well established sub-field of optical
+astronomy. Since then, there have been numerous studies and proposed
+revisions to the \textbf{Fork Sequence} that have been published. Hubble
+is generally regarded, in the field, as one of the most important
+observational cosmologists of the 20th century who played an important
+role in the establishment of the field of extragalactic astronomy.
+
+Project Objectives:
+
+Most of the galaxies in the Galaxy Zoo project are labelled as
+Uncertain. This is partially due to the 80\% voting threshold used to
+determine, with confidence, the morphology of each galaxy. Although such
+a high threshold is desirable, the 1.3 Book Organisation 3 outcome has
+significantly increased uncertainty instead of helping astronomers and
+cosmologists in their quest to unfold the facts about our universe.
+Thus, we aim to use intelligent data analysis techniques to resolve this
+problem. An analysis of the Galaxy Zoo Table 2 classification data set
+is carried out and an investigation into how to determine the categories
+of those galaxies labelled as Uncertain using an unsupervised approach
+is initiated. We also review the astronomical data mining landscape and
+detail the progress that has been made thus far towards effective
+classification in this field. The various algorithms that have been
+utilised to this effect will be studied and its results briefly analysed
+with particular focus being given to the K-Means clustering algorithm,
+which is the cynosure of this book. The main research carried out here
+centres on developing a heuristic technique towards attribute selection
+in order to help further increase the overall accuracies of galaxy
+classification, together with the utilisation of the K-Means algorithm,
+in an unsupervised setting. The aim is to be able to provide astronomers
+with a means to effectively assign each galaxy to the right category as
+accurately and efficiently as possible.
+
+    \subsection{Requirement Specification:}\label{requirement-specification}
+
+\subsubsection{Data Excavation Sites:}\label{data-excavation-sites}
+
+Datasets used this project are mined from the following servers; 1.
+\textbf{\emph{GalaxyZoo1:}} Galaxy Zoo is a crowdsourced astronomy
+project which invites people to assist in the morphological
+classification of large numbers of galaxies. It is an example of citizen
+science as it enlists the help of members of the public to help in
+scientific research.There have been 15 versions as of July 2017, many of
+which are outlined in this article. Galaxy Zoo is part of the
+Zooniverse, a group of citizen science projects. An outcome of the
+project is to better determine the different aspects of objects and to
+separate them into classifications.
+
+\begin{verbatim}
+A subscript from their official page says the following:
+\end{verbatim}
+
+\begin{quote}
+"\emph{Galaxy Zoo is a scientific project that has invited members of
+the public to help classify a million galaxies. Those involved are
+directly contributing to scientific research, while getting an
+opportunity to view the beautiful and varied galaxies that inhabit our
+universe.Why do we need people to do this, rather than just using a
+computer? The simple answer is that the human brain is much better at
+recognising patterns than a computer. Galaxies are complicated objects
+that vary in appearance enormously, and yet in some ways they can be
+very similar. We could write a computer program to classify these
+galaxies, and many researchers have, but so far none have really done a
+good enough job. We have not been able to make computers `see past' the
+complexity, to reliably identify the similarities that appear obvious to
+our eyes and brain. For now, and probably for some time yet, people do
+the best job of classifying galaxies.}" \textgreater{}
+
+"\emph{Getting all these galaxy classifications is just the first stage
+of our project. What we really want to do is some science, to try and
+understand what kind of galaxies there are, how they formed, and the
+processes that have changed them into the systems we see today. The
+journey from raw classifications to accepted scientific results is often
+long and arduous. In this blog we aim to explain the steps involved, and
+the scientific ideas we are working on.}"
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{\emph{GalaxyZoo2:}} The original Galaxy Zoo consisted of a
+  data set made up of ≈900,000 galaxies imaged by the Sloan Digital Sky
+  Survey. With so many galaxies, it had been assumed that it would take
+  years for visitors to the site to work through them all, but within 24
+  hours of launch, the website was receiving almost 70,000
+  classifications an hour. In the end, more than 50 million
+  classifications were received by the project during its first year,
+  contributed by more than 150,000 people. This was started in July 2007
+  and retired in 2009. \textbf{GalaxyZoo2} consisted of some 250,000 of
+  the brightest galaxies from the Sloan Digital Sky Survey. Galaxy Zoo 2
+  allowed for a much more detailed classification, by shape and by the
+  intensity or dimness of the galactic core, and with a special section
+  for oddities like mergers or ring galaxies. The sample also contained
+  fewer optical oddities. The project closed with some 60 million
+  classifications
+\item
+  \textbf{\emph{Sloan Digital SkyServer}}(\emph{10th,12th and 14th
+  release})\textbf{:} The Sloan Digital Sky Survey or SDSS is a major
+  multi-spectral imaging and spectroscopic redshift survey using a
+  dedicated 2.5-m wide-angle optical telescope at Apache Point
+  Observatory in New Mexico, United States. The project was named after
+  the Alfred P. Sloan Foundation, which contributed significant funding.
+  \textbf{\emph{Data collection began in 2000; }the final imaging data
+  release (DR9) covers over 35\% of the sky,* with photometric
+  observations of around nearly 1 billion objects, \emph{while the
+  survey continues to acquire spectra, having so far taken spectra of
+  over 4 million objects.}} The main galaxy sample has a median redshift
+  of z = 0.1; there are redshifts for luminous red galaxies as far as z
+  = 0.7, and for quasars as far as z = 5; and the imaging survey has
+  been involved in the detection of quasars beyond a redshift z = 6.
+  \emph{\textbf{Data release 8 (DR8)}, released in January 2011},
+  includes all photometric observations taken with the SDSS imaging
+  camera, covering 14,555 square degrees on the sky \emph{(just over
+  35\% of the full sky)}. \textbf{\emph{Data release 9 (DR9), released
+  to the public on }31 July 2012}\emph{, includes the first results from
+  the }\textbf{Baryon Oscillation Spectroscopic Survey (BOSS)}*
+  spectrograph, including over 800,000 new spectra. Over 500,000 of the
+  new spectra are of objects in the Universe 7 billion years ago
+  \emph{(roughly half the age of the universe)}. \textbf{Data release 10
+  (DR10), released to the public on 31 July 2013, includes all data from
+  previous releases, plus the first results from the \emph{APO Galactic
+  Evolution Experiment (APOGEE)}} spectrograph, including over 57,000
+  high-resolution infrared spectra of stars in the Milky Way.
+  \textbf{\emph{DR10 also includes over 670,000 new BOSS spectra of
+  galaxies and quasars in the distant universe.}} \emph{The publicly
+  available images from the survey were made between 1998 and 2009.}
+\end{enumerate}
+
+\subsubsection{Mining Tools}\label{mining-tools}
+
+Data can be easily mined from the skyserver by using their own sql based
+search tool which is available at
+\emph{https://skyserver.sdss.org/dr12/en/tools/search/sql.aspx }.
+Observations can be checked manually using another tool from the
+skyserver popularly known as the \textbf{voyage:}
+\emph{http://cas.sdss.org/dr15/en/tools/chart/navi.aspx} and is widely
+used by the educators and students from all over the world! or
+\textbf{astrometry:} \emph{http://nova.astrometry.net/user\_images}
+
+    **Query used for mining the Data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{getData }\KeywordTok{function}\NormalTok{(n)}\OperatorTok{\{}
+\NormalTok{select top n}
+ \VariableTok{p}\NormalTok{.}\AttributeTok{objid}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{ra}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{dec}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{u}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{g}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{r}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{i}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{z}\OperatorTok{,}
+ \VariableTok{p}\NormalTok{.}\AttributeTok{run}\OperatorTok{,} \VariableTok{p}\NormalTok{.}\AttributeTok{rerun}\OperatorTok{,} \VariableTok{p}\NormalTok{.}\AttributeTok{camcol}\OperatorTok{,} \VariableTok{p}\NormalTok{.}\AttributeTok{field}\OperatorTok{,}
+ \VariableTok{p}\NormalTok{.}\AttributeTok{mCr4_u}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{mCr4_g}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{mCr4_r}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{mCr4_i}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{mCr4_z}\OperatorTok{,}
+ \VariableTok{p}\NormalTok{.}\AttributeTok{mCr4PSF_u}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{mCr4PSF_g}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{mCr4PSF_r}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{mCr4PSF_i}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{mCr4PSF_z}\OperatorTok{,}
+ \VariableTok{p}\NormalTok{.}\AttributeTok{petroR50_u}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{petroR50_g}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{petroR50_r}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{petroR50_i}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{petroR50_z}\OperatorTok{,}
+ \VariableTok{p}\NormalTok{.}\AttributeTok{petroR90_u}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{petroR90_g}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{petroR90_r}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{petroR90_i}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{petroR90_z}\OperatorTok{,}\VariableTok{p}\NormalTok{.}\AttributeTok{type}\OperatorTok{,}
+ \VariableTok{s}\NormalTok{.}\AttributeTok{specobjid}\OperatorTok{,} \VariableTok{s}\NormalTok{.}\AttributeTok{class}\OperatorTok{,}\VariableTok{s}\NormalTok{.}\AttributeTok{subClass}\OperatorTok{,} \VariableTok{s}\NormalTok{.}\AttributeTok{z} \AttributeTok{as} \AttributeTok{redshift}\OperatorTok{,}
+ \VariableTok{s}\NormalTok{.}\AttributeTok{plate}\OperatorTok{,} \VariableTok{s}\NormalTok{.}\AttributeTok{mjd}\OperatorTok{,} \VariableTok{s}\NormalTok{.}\AttributeTok{fiberid}\OperatorTok{,}\VariableTok{s}\NormalTok{.}\AttributeTok{sourceType}\OperatorTok{,}
+ \VariableTok{z}\NormalTok{.}\AttributeTok{nvote}\OperatorTok{,}\VariableTok{z}\NormalTok{.}\AttributeTok{p_el}\OperatorTok{,}\VariableTok{z}\NormalTok{.}\AttributeTok{p_cw}\OperatorTok{,}\VariableTok{z}\NormalTok{.}\AttributeTok{p_acw}\OperatorTok{,}\VariableTok{z}\NormalTok{.}\AttributeTok{p_edge}\OperatorTok{,}\VariableTok{z}\NormalTok{.}\AttributeTok{p_dk}\OperatorTok{,}\VariableTok{z}\NormalTok{.}\AttributeTok{p_mg}
+\NormalTok{ FROM PhotoObjAll AS p}
+\NormalTok{ JOIN SpecObjAll AS s ON }\VariableTok{s}\NormalTok{.}\AttributeTok{bestObjID} \OperatorTok{=} \VariableTok{p}\NormalTok{.}\AttributeTok{objID} \AttributeTok{JOIN} \AttributeTok{zooNoSpec} \AttributeTok{as} \AttributeTok{z} \AttributeTok{on} \VariableTok{p}\NormalTok{.}\AttributeTok{objID} \OperatorTok{=} \VariableTok{z}\NormalTok{.}\AttributeTok{objID}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{\emph{Dataset Description}} \textgreater{}First Dataset contains
+1000 entries from GalaxyZoo Second and Third Dataset contains 10000 and
+100000 combined entries respectively from all the servers and multiple
+relations
+
+    \section{.}\label{section}
+
+    \section{separator}\label{separator}
+
+\section{separator}\label{separator-1}
+
+\section{separator}\label{separator-2}
+
+\section{separator}\label{separator-3}
+
+\section{separator}\label{separator-4}
+
+\section{separator}\label{separator-5}
+
+\section{separator}\label{separator-6}
+
+\section{separator}\label{separator-7}
+
+\section{separator}\label{separator-8}
+
+\section{separator}\label{separator-9}
+
+    \subsection{SDSS Dataset}\label{sdss-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} 
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} 
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{offline} \PY{k}{as} \PY{n+nn}{py}
+        \PY{n}{color} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{color\PYZus{}palette}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{as} \PY{n+nn}{go}
+        \PY{n}{py}\PY{o}{.}\PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{(}\PY{n}{connected}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{tools} \PY{k}{as} \PY{n+nn}{tls}
+        
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{SMALL\PYZus{}SIZE} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{MEDIUM\PYZus{}SIZE} \PY{o}{=} \PY{l+m+mi}{12}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{SMALL\PYZus{}SIZE}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{titlesize}\PY{o}{=}\PY{n}{MEDIUM\PYZus{}SIZE}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelsize}\PY{o}{=}\PY{n}{MEDIUM\PYZus{}SIZE}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.dpi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{150}
+\end{Verbatim}
+
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D:}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{ThirdFinalProject}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{Data\PYZus{}Mining}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}           objid          ra       dec         u         g         r         i  \textbackslash{}
+        0  1.237650e+18  238.221913 -0.132529  22.48091  19.68635  18.06919  17.42014   
+        1  1.237650e+18  238.299105 -0.090566  24.01885  21.31280  19.42684  18.69778   
+        2  1.237660e+18  237.360203 -0.539851  25.30761  21.91711  19.88564  18.99690   
+        3  1.237650e+18  237.678816 -0.092635  22.02136  19.88752  18.25693  17.64682   
+        4  1.237660e+18  237.532740 -0.458842  23.61204  21.03769  19.25393  18.46982   
+        5  1.237650e+18  237.286368 -0.001111  23.38643  20.59487  18.84793  18.21408   
+        
+                  z   run  rerun  {\ldots}      mjd  fiberid  sourceType  nvote   p\_el  \textbackslash{}
+        0  17.02861   745    301  {\ldots}    51691       23          QA     36  0.444   
+        1  18.32586   745    301  {\ldots}    51691       32      GALAXY     56  0.589   
+        2  18.63636  2379    301  {\ldots}    51691       60      GALAXY     29  0.621   
+        3  17.22701   745    301  {\ldots}    51691       72      GALAXY     31  0.935   
+        4  17.95373  2334    301  {\ldots}    51691       77      GALAXY     36  0.722   
+        5  17.74901   756    301  {\ldots}    51691      115      GALAXY     31  0.806   
+        
+            p\_cw  p\_acw  p\_edge   p\_dk   p\_mg  
+        0  0.028    0.0   0.056  0.250  0.222  
+        1  0.071    0.0   0.054  0.214  0.071  
+        2  0.000    0.0   0.000  0.379  0.000  
+        3  0.000    0.0   0.065  0.000  0.000  
+        4  0.028    0.0   0.083  0.167  0.000  
+        5  0.032    0.0   0.032  0.129  0.000  
+        
+        [6 rows x 48 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} (10000, 48)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}               objid            ra           dec             u             g  \textbackslash{}
+        count  1.000000e+04  10000.000000  10000.000000  10000.000000  10000.000000   
+        mean   1.237658e+18    181.168587     22.168477     20.820554     19.608388   
+        std    6.811496e+12     75.053181     22.125777    100.233359      1.574205   
+        min    1.237650e+18      0.007725    -10.591532  -9999.000000     12.078650   
+        25\%    1.237650e+18    140.602476      1.260922     20.081770     18.659685   
+        50\%    1.237660e+18    177.545262     13.827875     22.024620     19.968840   
+        75\%    1.237660e+18    223.382372     44.618095     23.227105     20.750422   
+        max    1.237680e+18    359.981288     66.214851     28.021740     25.937150   
+        
+                          r             i             z          run    rerun  \textbackslash{}
+        count  10000.000000  10000.000000  10000.000000  10000.00000  10000.0   
+        mean      18.232711     17.662157     17.326583   3011.33930    301.0   
+        std        1.220672      1.137144      1.136371   1480.50798      0.0   
+        min       11.430110     11.118840     10.936630    745.00000    301.0   
+        25\%       17.755228     17.262082     16.929860   1754.00000    301.0   
+        50\%       18.461960     17.891215     17.537580   2883.00000    301.0   
+        75\%       18.995228     18.336160     17.960793   3965.00000    301.0   
+        max       24.802040     24.387500     24.747120   7777.00000    301.0   
+        
+                   {\ldots}              plate           mjd       fiberid         nvote  \textbackslash{}
+        count      {\ldots}       10000.000000  10000.000000  10000.000000  10000.000000   
+        mean       {\ldots}        1345.376800  52801.870900    319.162200     38.728500   
+        std        {\ldots}        1384.366401   1162.550273    203.478093     13.716647   
+        min        {\ldots}         270.000000  51578.000000      1.000000     10.000000   
+        25\%        {\ldots}         452.000000  52000.000000    153.000000     28.000000   
+        50\%        {\ldots}         902.000000  52465.000000    294.000000     34.000000   
+        75\%        {\ldots}        1692.500000  53085.000000    474.000000     51.000000   
+        max        {\ldots}        7447.000000  56749.000000    998.000000     86.000000   
+        
+                       p\_el          p\_cw         p\_acw        p\_edge          p\_dk  \textbackslash{}
+        count  10000.000000  10000.000000  10000.000000  10000.000000  10000.000000   
+        mean       0.605021      0.023758      0.026497      0.092182      0.202642   
+        std        0.218293      0.090401      0.091167      0.132337      0.148685   
+        min        0.000000      0.000000      0.000000      0.000000      0.000000   
+        25\%        0.476000      0.000000      0.000000      0.030000      0.098000   
+        50\%        0.655000      0.000000      0.000000      0.056000      0.179000   
+        75\%        0.769000      0.020000      0.028000      0.100000      0.273000   
+        max        1.000000      1.000000      1.000000      1.000000      1.000000   
+        
+                       p\_mg  
+        count  10000.000000  
+        mean       0.049831  
+        std        0.105728  
+        min        0.000000  
+        25\%        0.000000  
+        50\%        0.000000  
+        75\%        0.040000  
+        max        0.963000  
+        
+        [8 rows x 45 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 10000 entries, 0 to 9999
+Data columns (total 48 columns):
+objid         10000 non-null float64
+ra            10000 non-null float64
+dec           10000 non-null float64
+u             10000 non-null float64
+g             10000 non-null float64
+r             10000 non-null float64
+i             10000 non-null float64
+z             10000 non-null float64
+run           10000 non-null int64
+rerun         10000 non-null int64
+camcol        10000 non-null int64
+field         10000 non-null int64
+mCr4\_u        10000 non-null float64
+mCr4\_g        10000 non-null float64
+mCr4\_r        10000 non-null float64
+mCr4\_i        10000 non-null float64
+mCr4\_z        10000 non-null float64
+mCr4PSF\_u     10000 non-null float64
+mCr4PSF\_g     10000 non-null float64
+mCr4PSF\_r     10000 non-null float64
+mCr4PSF\_i     10000 non-null float64
+mCr4PSF\_z     10000 non-null float64
+petroR50\_u    10000 non-null float64
+petroR50\_g    10000 non-null float64
+petroR50\_r    10000 non-null float64
+petroR50\_i    10000 non-null float64
+petroR50\_z    10000 non-null float64
+petroR90\_u    10000 non-null float64
+petroR90\_g    10000 non-null float64
+petroR90\_r    10000 non-null float64
+petroR90\_i    10000 non-null float64
+petroR90\_z    10000 non-null float64
+type          10000 non-null int64
+specobjid     10000 non-null float64
+class         10000 non-null object
+subClass      2453 non-null object
+redshift      10000 non-null float64
+plate         10000 non-null int64
+mjd           10000 non-null int64
+fiberid       10000 non-null int64
+sourceType    10000 non-null object
+nvote         10000 non-null int64
+p\_el          10000 non-null float64
+p\_cw          10000 non-null float64
+p\_acw         10000 non-null float64
+p\_edge        10000 non-null float64
+p\_dk          10000 non-null float64
+p\_mg          10000 non-null float64
+dtypes: float64(36), int64(9), object(3)
+memory usage: 3.7+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{l+m+mi}{10000}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} objid          0.00
+        ra             0.00
+        dec            0.00
+        u              0.00
+        g              0.00
+        r              0.00
+        i              0.00
+        z              0.00
+        run            0.00
+        rerun          0.00
+        camcol         0.00
+        field          0.00
+        mCr4\_u         0.00
+        mCr4\_g         0.00
+        mCr4\_r         0.00
+        mCr4\_i         0.00
+        mCr4\_z         0.00
+        mCr4PSF\_u      0.00
+        mCr4PSF\_g      0.00
+        mCr4PSF\_r      0.00
+        mCr4PSF\_i      0.00
+        mCr4PSF\_z      0.00
+        petroR50\_u     0.00
+        petroR50\_g     0.00
+        petroR50\_r     0.00
+        petroR50\_i     0.00
+        petroR50\_z     0.00
+        petroR90\_u     0.00
+        petroR90\_g     0.00
+        petroR90\_r     0.00
+        petroR90\_i     0.00
+        petroR90\_z     0.00
+        type           0.00
+        specobjid      0.00
+        class          0.00
+        subClass      75.47
+        redshift       0.00
+        plate          0.00
+        mjd            0.00
+        fiberid        0.00
+        sourceType     0.00
+        nvote          0.00
+        p\_el           0.00
+        p\_cw           0.00
+        p\_acw          0.00
+        p\_edge         0.00
+        p\_dk           0.00
+        p\_mg           0.00
+        dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bwr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1ac9576cc88>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}                objid        ra       dec         u         g         r  \textbackslash{}
+        objid       1.000000 -0.155984  0.089344  0.010342 -0.026791 -0.013652   
+        ra         -0.155984  1.000000 -0.130985 -0.007877 -0.029046 -0.048728   
+        dec         0.089344 -0.130985  1.000000  0.011855  0.085041  0.066052   
+        u           0.010342 -0.007877  0.011855  1.000000  0.021425  0.018633   
+        g          -0.026791 -0.029046  0.085041  0.021425  1.000000  0.946970   
+        r          -0.013652 -0.048728  0.066052  0.018633  0.946970  1.000000   
+        i          -0.004826 -0.050352  0.062340  0.017094  0.899622  0.976533   
+        z           0.007191 -0.059793  0.053440  0.016695  0.842334  0.938983   
+        run         0.906356 -0.170035  0.075869  0.015133  0.013052  0.015807   
+        rerun            NaN       NaN       NaN       NaN       NaN       NaN   
+        camcol     -0.075339 -0.100601  0.152391  0.007455 -0.012539 -0.012791   
+        field      -0.003053 -0.081433 -0.206637 -0.028339 -0.051595 -0.026174   
+        mCr4\_u      0.025069  0.001263 -0.019851  0.013558 -0.299855 -0.255765   
+        mCr4\_g     -0.024271 -0.002853 -0.014695 -0.000157 -0.080843  0.009261   
+        mCr4\_r     -0.020962  0.015645  0.007117  0.000488  0.015025  0.012542   
+        mCr4\_i     -0.019368  0.014809 -0.014152  0.000400 -0.015278  0.013542   
+        mCr4\_z     -0.030443  0.021681  0.004925 -0.000354 -0.026106 -0.005403   
+        mCr4PSF\_u   0.011588 -0.007884  0.010332  0.999749  0.002512  0.001898   
+        mCr4PSF\_g   0.335771  0.119305 -0.046064 -0.004792 -0.041956 -0.034651   
+        mCr4PSF\_r   0.211136  0.134909  0.140045 -0.001803  0.021101  0.005343   
+        mCr4PSF\_i   0.256493  0.103574  0.160579  0.006514  0.044737  0.030555   
+        mCr4PSF\_z   0.243777  0.030386  0.215471  0.006278  0.018623  0.005491   
+        petroR50\_u  0.058742 -0.020966 -0.005912  0.014435 -0.280201 -0.228852   
+        petroR50\_g  0.030072 -0.019980  0.021687 -0.002331 -0.114018 -0.073911   
+        petroR50\_r  0.011219  0.008420 -0.010297 -0.000126 -0.013008 -0.038579   
+        petroR50\_i -0.001654  0.013411  0.010827 -0.000849 -0.028100 -0.036352   
+        petroR50\_z  0.004453 -0.010725  0.006157 -0.000700 -0.015049 -0.006280   
+        petroR90\_u  0.058058 -0.020761 -0.003377  0.014573 -0.279517 -0.228522   
+        petroR90\_g  0.030048 -0.020000  0.021693 -0.002345 -0.115935 -0.076136   
+        petroR90\_r  0.010672  0.008354 -0.010404 -0.000176 -0.025795 -0.054242   
+        petroR90\_i -0.001772  0.013409  0.010800 -0.000862 -0.031757 -0.040896   
+        petroR90\_z  0.004430 -0.010717  0.006150 -0.000704 -0.016704 -0.008339   
+        type        0.012865  0.004938  0.018087  0.000789  0.050792  0.120493   
+        specobjid   0.122436 -0.030815  0.193102  0.002083 -0.303156 -0.339472   
+        redshift   -0.005598 -0.035728  0.079758  0.019144  0.632397  0.580499   
+        plate       0.122437 -0.030812  0.193099  0.002083 -0.303155 -0.339471   
+        mjd         0.138706 -0.027573  0.206755  0.004733 -0.284335 -0.320258   
+        fiberid     0.009374 -0.088356  0.140399  0.002347 -0.118439 -0.128834   
+        nvote      -0.004544  0.001392  0.006390 -0.017688  0.007326  0.010782   
+        p\_el       -0.008778  0.005866  0.077081 -0.002285  0.341107  0.232977   
+        p\_cw       -0.009949  0.041297 -0.035817 -0.003231 -0.292611 -0.288631   
+        p\_acw      -0.003620 -0.004998 -0.046689 -0.002567 -0.268699 -0.253638   
+        p\_edge      0.033779  0.003005 -0.073918 -0.001318 -0.375776 -0.303576   
+        p\_dk       -0.007362 -0.028680  0.006626  0.005329  0.223671  0.307288   
+        p\_mg       -0.002129 -0.006645 -0.004960  0.003846 -0.066464 -0.067594   
+        
+                           i         z       run  rerun    {\ldots}        plate       mjd  \textbackslash{}
+        objid      -0.004826  0.007191  0.906356    NaN    {\ldots}     0.122437  0.138706   
+        ra         -0.050352 -0.059793 -0.170035    NaN    {\ldots}    -0.030812 -0.027573   
+        dec         0.062340  0.053440  0.075869    NaN    {\ldots}     0.193099  0.206755   
+        u           0.017094  0.016695  0.015133    NaN    {\ldots}     0.002083  0.004733   
+        g           0.899622  0.842334  0.013052    NaN    {\ldots}    -0.303155 -0.284335   
+        r           0.976533  0.938983  0.015807    NaN    {\ldots}    -0.339471 -0.320258   
+        i           1.000000  0.961600  0.022667    NaN    {\ldots}    -0.349748 -0.331067   
+        z           0.961600  1.000000  0.030507    NaN    {\ldots}    -0.354724 -0.335358   
+        run         0.022667  0.030507  1.000000    NaN    {\ldots}     0.143277  0.161359   
+        rerun            NaN       NaN       NaN    NaN    {\ldots}          NaN       NaN   
+        camcol     -0.018598 -0.018328 -0.068833    NaN    {\ldots}     0.001961  0.014036   
+        field      -0.019581 -0.008146 -0.102034    NaN    {\ldots}    -0.077116 -0.083630   
+        mCr4\_u     -0.224336 -0.209513  0.001136    NaN    {\ldots}     0.087822  0.081878   
+        mCr4\_g     -0.014482 -0.042897 -0.029299    NaN    {\ldots}    -0.005413 -0.003768   
+        mCr4\_r      0.003040 -0.074196 -0.014710    NaN    {\ldots}    -0.014982 -0.010841   
+        mCr4\_i     -0.092195 -0.080864 -0.021697    NaN    {\ldots}     0.003300  0.008711   
+        mCr4\_z     -0.009824 -0.153673 -0.031900    NaN    {\ldots}     0.006777  0.008305   
+        mCr4PSF\_u   0.001945  0.003006  0.015300    NaN    {\ldots}     0.007257  0.009568   
+        mCr4PSF\_g  -0.029506 -0.024342  0.260637    NaN    {\ldots}     0.071604  0.090737   
+        mCr4PSF\_r   0.002243 -0.001600  0.238918    NaN    {\ldots}     0.103592  0.119976   
+        mCr4PSF\_i   0.026857  0.021321  0.283102    NaN    {\ldots}     0.102260  0.121498   
+        mCr4PSF\_z   0.002601 -0.006903  0.237875    NaN    {\ldots}     0.124822  0.142365   
+        petroR50\_u -0.199651 -0.184191  0.034230    NaN    {\ldots}     0.083611  0.077938   
+        petroR50\_g -0.071593 -0.073899  0.022645    NaN    {\ldots}     0.009014  0.005602   
+        petroR50\_r -0.019854 -0.014212  0.010384    NaN    {\ldots}    -0.014214 -0.020591   
+        petroR50\_i -0.066842 -0.066819  0.000758    NaN    {\ldots}     0.009530  0.009843   
+        petroR50\_z -0.017196 -0.133244  0.003783    NaN    {\ldots}     0.013840  0.012018   
+        petroR90\_u -0.199381 -0.183960  0.034410    NaN    {\ldots}     0.083497  0.077905   
+        petroR90\_g -0.073866 -0.076138  0.022592    NaN    {\ldots}     0.009796  0.006359   
+        petroR90\_r -0.036084 -0.030150  0.009702    NaN    {\ldots}    -0.008794 -0.015336   
+        petroR90\_i -0.071602 -0.071530  0.000616    NaN    {\ldots}     0.011182  0.011435   
+        petroR90\_z -0.019373 -0.135454  0.003745    NaN    {\ldots}     0.014679  0.012831   
+        type        0.150529  0.168221  0.011221    NaN    {\ldots}     0.008710  0.013355   
+        specobjid  -0.349749 -0.354724  0.143276    NaN    {\ldots}     1.000000  0.980591   
+        redshift    0.523258  0.471794  0.011989    NaN    {\ldots}    -0.140932 -0.127961   
+        plate      -0.349748 -0.354724  0.143277    NaN    {\ldots}     1.000000  0.980590   
+        mjd        -0.331067 -0.335358  0.161359    NaN    {\ldots}     0.980590  1.000000   
+        fiberid    -0.127910 -0.129227  0.020307    NaN    {\ldots}     0.296185  0.306234   
+        nvote       0.011940  0.008865 -0.007419    NaN    {\ldots}    -0.003286 -0.000513   
+        p\_el        0.186968  0.128093  0.013512    NaN    {\ldots}     0.011595  0.021648   
+        p\_cw       -0.281542 -0.267099 -0.028859    NaN    {\ldots}     0.093988  0.082553   
+        p\_acw      -0.240889 -0.220856 -0.032367    NaN    {\ldots}     0.056945  0.045701   
+        p\_edge     -0.271764 -0.236468  0.001217    NaN    {\ldots}     0.044990  0.033804   
+        p\_dk        0.329852  0.360835  0.019651    NaN    {\ldots}    -0.224618 -0.211291   
+        p\_mg       -0.061211 -0.057071 -0.004413    NaN    {\ldots}     0.106190  0.100179   
+        
+                     fiberid     nvote      p\_el      p\_cw     p\_acw    p\_edge  \textbackslash{}
+        objid       0.009374 -0.004544 -0.008778 -0.009949 -0.003620  0.033779   
+        ra         -0.088356  0.001392  0.005866  0.041297 -0.004998  0.003005   
+        dec         0.140399  0.006390  0.077081 -0.035817 -0.046689 -0.073918   
+        u           0.002347 -0.017688 -0.002285 -0.003231 -0.002567 -0.001318   
+        g          -0.118439  0.007326  0.341107 -0.292611 -0.268699 -0.375776   
+        r          -0.128834  0.010782  0.232977 -0.288631 -0.253638 -0.303576   
+        i          -0.127910  0.011940  0.186968 -0.281542 -0.240889 -0.271764   
+        z          -0.129227  0.008865  0.128093 -0.267099 -0.220856 -0.236468   
+        run         0.020307 -0.007419  0.013512 -0.028859 -0.032367  0.001217   
+        rerun            NaN       NaN       NaN       NaN       NaN       NaN   
+        camcol      0.368966 -0.013898  0.009197  0.014180 -0.006029  0.005193   
+        field      -0.008984 -0.006312 -0.038826  0.013931  0.051016  0.051585   
+        mCr4\_u      0.044142  0.005089 -0.082686  0.061224  0.069639  0.123703   
+        mCr4\_g     -0.021463  0.004980  0.072939 -0.051498 -0.028013 -0.000493   
+        mCr4\_r      0.018349  0.001784  0.047493  0.002044 -0.068932 -0.008214   
+        mCr4\_i      0.000863 -0.003011  0.065421  0.006171 -0.036959 -0.009727   
+        mCr4\_z      0.001118  0.007850  0.084503 -0.000404 -0.035173 -0.006985   
+        mCr4PSF\_u   0.004659 -0.017695 -0.010812  0.002629  0.002908  0.006971   
+        mCr4PSF\_g   0.014612  0.007232 -0.010094  0.003793  0.020074  0.030560   
+        mCr4PSF\_r  -0.011157 -0.008924  0.020827 -0.005408 -0.023166 -0.009411   
+        mCr4PSF\_i  -0.022125 -0.002434  0.036550 -0.008061 -0.016668 -0.034729   
+        mCr4PSF\_z   0.016181 -0.001177  0.050666 -0.002116 -0.005491 -0.028195   
+        petroR50\_u  0.046716  0.002183 -0.096921  0.070117  0.064378  0.129022   
+        petroR50\_g -0.010793 -0.002210  0.031244  0.004460  0.006119  0.017837   
+        petroR50\_r  0.014391 -0.013618  0.019448  0.008579  0.007496 -0.048753   
+        petroR50\_i -0.006963 -0.016803  0.021046  0.001757  0.009301  0.005912   
+        petroR50\_z  0.001247  0.002172  0.082630 -0.010057 -0.005352 -0.016325   
+        petroR90\_u  0.047821  0.003684 -0.094671  0.069816  0.063890  0.128514   
+        petroR90\_g -0.010569 -0.002265  0.030678  0.005377  0.006748  0.018737   
+        petroR90\_r  0.016232 -0.013970  0.015599  0.014981  0.011962 -0.042898   
+        petroR90\_i -0.006460 -0.016907  0.020046  0.003647  0.010545  0.007549   
+        petroR90\_z  0.001489  0.002147  0.082319 -0.009202 -0.004801 -0.015666   
+        type        0.016703 -0.004849 -0.098982 -0.020698 -0.027003 -0.026024   
+        specobjid   0.296217 -0.003286  0.011594  0.093988  0.056945  0.044991   
+        redshift   -0.054765 -0.010791  0.249676 -0.157335 -0.152615 -0.280638   
+        plate       0.296185 -0.003286  0.011595  0.093988  0.056945  0.044990   
+        mjd         0.306234 -0.000513  0.021648  0.082553  0.045701  0.033804   
+        fiberid     1.000000 -0.004339 -0.000100  0.043459  0.022069  0.025809   
+        nvote      -0.004339  1.000000  0.004100 -0.010843 -0.010694  0.011615   
+        p\_el       -0.000100  0.004100  1.000000 -0.317896 -0.317978 -0.484292   
+        p\_cw        0.043459 -0.010843 -0.317896  1.000000 -0.003445  0.070627   
+        p\_acw       0.022069 -0.010694 -0.317978 -0.003445  1.000000  0.074942   
+        p\_edge      0.025809  0.011615 -0.484292  0.070627  0.074942  1.000000   
+        p\_dk       -0.082861  0.001752 -0.390690 -0.177424 -0.177722 -0.200384   
+        p\_mg        0.028290 -0.006350 -0.362898 -0.034702 -0.046778 -0.095070   
+        
+                        p\_dk      p\_mg  
+        objid      -0.007362 -0.002129  
+        ra         -0.028680 -0.006645  
+        dec         0.006626 -0.004960  
+        u           0.005329  0.003846  
+        g           0.223671 -0.066464  
+        r           0.307288 -0.067594  
+        i           0.329852 -0.061211  
+        z           0.360835 -0.057071  
+        run         0.019651 -0.004413  
+        rerun            NaN       NaN  
+        camcol     -0.026946  0.005466  
+        field      -0.030747  0.002946  
+        mCr4\_u     -0.086994  0.025867  
+        mCr4\_g     -0.056720 -0.002117  
+        mCr4\_r     -0.010496 -0.015338  
+        mCr4\_i     -0.057332 -0.015782  
+        mCr4\_z     -0.101182  0.007311  
+        mCr4PSF\_u   0.002931  0.004714  
+        mCr4PSF\_g  -0.026346 -0.000953  
+        mCr4PSF\_r  -0.005088  0.000395  
+        mCr4PSF\_i  -0.001873 -0.008132  
+        mCr4PSF\_z  -0.039465 -0.007270  
+        petroR50\_u -0.053815 -0.001205  
+        petroR50\_g -0.063962 -0.006014  
+        petroR50\_r  0.003669  0.001902  
+        petroR50\_i -0.048011  0.007091  
+        petroR50\_z -0.092972 -0.006127  
+        petroR90\_u -0.055206 -0.002571  
+        petroR90\_g -0.064939 -0.005922  
+        petroR90\_r -0.003279  0.002965  
+        petroR90\_i -0.050142  0.007414  
+        petroR90\_z -0.094036 -0.006021  
+        type        0.207192 -0.013340  
+        specobjid  -0.224618  0.106190  
+        redshift    0.119893 -0.066651  
+        plate      -0.224618  0.106190  
+        mjd        -0.211291  0.100179  
+        fiberid    -0.082861  0.028290  
+        nvote       0.001752 -0.006350  
+        p\_el       -0.390690 -0.362898  
+        p\_cw       -0.177424 -0.034702  
+        p\_acw      -0.177722 -0.046778  
+        p\_edge     -0.200384 -0.095070  
+        p\_dk        1.000000 -0.043909  
+        p\_mg       -0.043909  1.000000  
+        
+        [45 rows x 45 columns]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{a4\PYZus{}dims} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{a4\PYZus{}dims}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{y}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{df}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} GALAXY    9401
+        STAR       446
+        QSO        153
+        Name: class, dtype: int64
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{a4\PYZus{}dims} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{a4\PYZus{}dims}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{y}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sourceType}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{df}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sourceType}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} GALAXY                 7270
+         QSO                     930
+         LRG                     711
+         SERENDIPITY\_FIRST       299
+         BRIGHTGAL               251
+         NONLEGACY               202
+         QA                      172
+         ROSAT\_D                 112
+         SERENDIPITY\_DISTANT      17
+         SERENDIPITY\_BLUE          7
+         WISE\_COMPLETE             4
+         SEQUELS\_TARGET            4
+         SERENDIPITY\_MANUAL        3
+         HIZ\_LRG                   2
+         WISE\_BOSS\_QSO             2
+         BLAZXR                    2
+         SN\_GAL2                   1
+         STAR                      1
+         STAR\_BHB                  1
+         TEMPLATE\_GAL\_PHOTO        1
+         LRG\_ROUND3                1
+         SN\_LOC                    1
+         CLUSTER\_MEMBER            1
+         XMMBRIGHT                 1
+         BLAZGXR                   1
+         STAR\_CARBON               1
+         STRIPE82BCG               1
+         STAR\_PN                   1
+         Name: sourceType, dtype: int64
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{a4\PYZus{}dims} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{a4\PYZus{}dims}\PY{p}{)}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{y}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{subClass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{df}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{subClass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} STARBURST                849
+         STARFORMING              761
+         BROADLINE                221
+         AGN                       92
+         F9                        80
+         STARBURST BROADLINE       47
+         K5                        43
+         AGN BROADLINE             33
+         M0                        33
+         K1                        31
+         K7                        31
+         M3                        31
+         K3                        30
+         M2                        29
+         G2                        25
+         M1                        22
+         F5                        17
+         M4                        13
+         T2                         8
+         L5.5                       6
+         F2                         6
+         G0                         5
+         K5 (G\_19-24)               5
+         A0                         4
+         STARFORMING BROADLINE      4
+         G4V (32923)                3
+         K5Ve (118100)              3
+         L9                         3
+         A0p                        2
+         M5                         2
+         F0IV (81937)               2
+         WDmagnetic                 2
+         F3/F5V (30743)             1
+         O                          1
+         M9                         1
+         M7                         1
+         Carbon\_lines               1
+         F6V (16673)                1
+         Carbon                     1
+         F2V (33256)                1
+         L5                         1
+         CarbonWD                   1
+         Name: subClass, dtype: int64
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{GalaxyZoo-SDSS Dataset}\label{galaxyzoo-sdss-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}def splitdata\PYZus{}train\PYZus{}test(data, fraction\PYZus{}training):}
+         \PY{c+c1}{\PYZsh{}  np.random.seed(0)}
+         \PY{c+c1}{\PYZsh{}  np.random.shuffle(data)  }
+         \PY{c+c1}{\PYZsh{}  split = int(len(data)*fraction\PYZus{}training)}
+         \PY{c+c1}{\PYZsh{}  return data[:split], data[split:]}
+         
+         \PY{c+c1}{\PYZsh{}if \PYZus{}\PYZus{}name\PYZus{}\PYZus{} == \PYZdq{}\PYZus{}\PYZus{}main\PYZus{}\PYZus{}\PYZdq{}:}
+         \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D:}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{ThirdFinalProject}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{Data\PYZus{}Mining}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{GalaxyMorphologicalExcavation.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fraction\PYZus{}training} \PY{o}{=} \PY{l+m+mf}{0.7}
+         \PY{n}{msk} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{fraction\PYZus{}training}
+         \PY{n}{train} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{msk}\PY{p}{]}
+         \PY{n}{test} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{msk}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} set the fraction of data which should be in the training set}
+         \PY{c+c1}{\PYZsh{}fraction\PYZus{}training = 0.7}
+         
+         \PY{c+c1}{\PYZsh{} split the data using your function}
+         \PY{c+c1}{\PYZsh{}training, testing = splitdata\PYZus{}train\PYZus{}test(data, fraction\PYZus{}training)}
+         
+         \PY{c+c1}{\PYZsh{} print the key values}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number data galaxies:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train fraction:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fraction\PYZus{}training}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of galaxies in training set:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of galaxies in testing set:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number data galaxies: 780
+Train fraction: 0.7
+Number of galaxies in training set: 555
+Number of galaxies in testing set: 225
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{train}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} (555, 17)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{test}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} (225, 17)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{k}{def} \PY{n+nf}{generate\PYZus{}features\PYZus{}targets}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+           \PY{c+c1}{\PYZsh{} complete the function by calculating the concentrations}
+         
+           \PY{n}{targets} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+           \PY{n}{features} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{13}\PY{p}{)}\PY{p}{)}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{u\PYZhy{}g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}i}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{i\PYZhy{}z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ecc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m4\PYZus{}u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m4\PYZus{}g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m4\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m4\PYZus{}i}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m4\PYZus{}z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+           \PY{c+c1}{\PYZsh{} fill the remaining 3 columns with concentrations in the u, r and z filters}
+           \PY{c+c1}{\PYZsh{} concentration in u filter}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR50\PYZus{}u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR90\PYZus{}u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+           \PY{c+c1}{\PYZsh{} concentration in r filter}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR50\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR90\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+           \PY{c+c1}{\PYZsh{} concentration in z filter}
+           \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR50\PYZus{}z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR90\PYZus{}z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         
+           \PY{k}{return} \PY{n}{features}\PY{p}{,} \PY{n}{targets}
+         
+         
+         \PY{c+c1}{\PYZsh{}  data = np.load(\PYZsq{}galaxy\PYZus{}catalogue.npy\PYZsq{})}
+         
+         \PY{n}{features}\PY{p}{,} \PY{n}{targets} \PY{o}{=} \PY{n}{generate\PYZus{}features\PYZus{}targets}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         
+           \PY{c+c1}{\PYZsh{} Print the shape of each array to check the arrays are the correct dimensions. }
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Features shape:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{features}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Targets shape:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{targets}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Features shape: (780, 13)
+Targets shape: (780,)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+         \PY{n}{dtc} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{n}{train\PYZus{}features}\PY{p}{,} \PY{n}{train\PYZus{}targets} \PY{o}{=} \PY{n}{generate\PYZus{}features\PYZus{}targets}\PY{p}{(}\PY{n}{train}\PY{p}{)}
+         \PY{n}{test\PYZus{}features}\PY{p}{,} \PY{n}{test\PYZus{}targets} \PY{o}{=} \PY{n}{generate\PYZus{}features\PYZus{}targets}\PY{p}{(}\PY{n}{test}\PY{p}{)}
+         \PY{n}{dtc} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{n}{dtc}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}features}\PY{p}{,} \PY{n}{train\PYZus{}targets}\PY{p}{)}
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{dtc}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}features}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}test\PYZus{}targets}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}predict}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+         \PY{k+kn}{import} \PY{n+nn}{itertools}    
+         
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{classes}\PY{p}{,}
+                                   \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                                   \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Confusion matrix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                   \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Blues}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    This function prints and plots the confusion matrix.}
+         \PY{l+s+sd}{    Normalization can be applied by setting `normalize=True`.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+             \PY{n}{tick\PYZus{}marks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{)}
+         
+             \PY{k}{if} \PY{n}{normalize}\PY{p}{:}
+                 \PY{n}{cm} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{/} \PY{n}{cm}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Normalized confusion matrix}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Confusion matrix, without normalization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{cm}\PY{p}{)}
+         
+             \PY{n}{thresh} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{j} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{thresh} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+         \PY{k}{def} \PY{n+nf}{calculate\PYZus{}accuracy}\PY{p}{(}\PY{n}{predicted\PYZus{}classes}\PY{p}{,} \PY{n}{actual\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+           \PY{k}{return} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{predicted\PYZus{}classes} \PY{o}{==} \PY{n}{actual\PYZus{}classes}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{actual\PYZus{}classes}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{predicted} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}predict}\PY{p}{(}\PY{n}{dtc}\PY{p}{,} \PY{n}{features}\PY{p}{,} \PY{n}{targets}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} calculate the model score using your function}
+         \PY{n}{model\PYZus{}score} \PY{o}{=} \PY{n}{calculate\PYZus{}accuracy}\PY{p}{(}\PY{n}{predicted}\PY{p}{,} \PY{n}{targets}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Our accuracy score:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{model\PYZus{}score}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} calculate the models confusion matrix using sklearns confusion\PYZus{}matrix function}
+         \PY{n}{class\PYZus{}labels} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{targets}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model\PYZus{}cm\PYZus{}dtc} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{targets}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{o}{=}\PY{n}{predicted}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{class\PYZus{}labels}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot the confusion matrix using the provided functions.}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{model\PYZus{}cm\PYZus{}dtc}\PY{p}{,} \PY{n}{classes}\PY{o}{=}\PY{n}{class\PYZus{}labels}\PY{p}{,} \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Our accuracy score: 0.7871794871794872
+Confusion matrix, without normalization
+[[234   3  23]
+ [  4 199  57]
+ [ 25  54 181]]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}predict}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+         
+         
+         \PY{c+c1}{\PYZsh{} complete this function to get predictions from a random forest classifier}
+         \PY{k}{def} \PY{n+nf}{rf\PYZus{}predict\PYZus{}actual}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{p}{)}\PY{p}{:}
+           \PY{c+c1}{\PYZsh{} generate the features and targets}
+           \PY{n}{features}\PY{p}{,} \PY{n}{targets} \PY{o}{=} \PY{n}{generate\PYZus{}features\PYZus{}targets}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         
+           \PY{c+c1}{\PYZsh{} instantiate a random forest classifier}
+           \PY{n}{rfc} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{n}{n\PYZus{}estimators}\PY{p}{)}
+           
+           \PY{c+c1}{\PYZsh{} get predictions using 10\PYZhy{}fold cross validation with cross\PYZus{}val\PYZus{}predict}
+           \PY{n}{predicted} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}predict}\PY{p}{(}\PY{n}{rfc}\PY{p}{,} \PY{n}{features}\PY{p}{,} \PY{n}{targets}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+           \PY{c+c1}{\PYZsh{} return the predictions and their actual classes}
+           \PY{k}{return} \PY{n}{predicted}\PY{p}{,} \PY{n}{targets}
+         
+         
+         \PY{c+c1}{\PYZsh{} get the predicted and actual classes}
+         \PY{n}{number\PYZus{}estimators} \PY{o}{=} \PY{l+m+mi}{50}              \PY{c+c1}{\PYZsh{} Number of trees}
+         \PY{n}{predicted}\PY{p}{,} \PY{n}{actual} \PY{o}{=} \PY{n}{rf\PYZus{}predict\PYZus{}actual}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{number\PYZus{}estimators}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} calculate the model score using your function}
+         \PY{n}{accuracy} \PY{o}{=} \PY{n}{calculate\PYZus{}accuracy}\PY{p}{(}\PY{n}{predicted}\PY{p}{,} \PY{n}{actual}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy score:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{accuracy}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} calculate the models confusion matrix using sklearns confusion\PYZus{}matrix function}
+         \PY{n}{class\PYZus{}labels} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{actual}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model\PYZus{}cm\PYZus{}rfc} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{actual}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{o}{=}\PY{n}{predicted}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{class\PYZus{}labels}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot the confusion matrix using the provided functions.}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{model\PYZus{}cm\PYZus{}rfc}\PY{p}{,} \PY{n}{classes}\PY{o}{=}\PY{n}{class\PYZus{}labels}\PY{p}{,} \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy score: 0.867948717948718
+Confusion matrix, without normalization
+[[247   1  12]
+ [  1 222  37]
+ [ 15  37 208]]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Applying to SDSS}\label{applying-to-sdss}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{prob\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p\PYZus{}el}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p\PYZus{}cw}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p\PYZus{}acw}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p\PYZus{}edge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p\PYZus{}dk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p\PYZus{}mg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df}\PY{p}{[}\PY{n}{prob\PYZus{}col}\PY{p}{]}
+         \PY{k}{def} \PY{n+nf}{tune\PYZus{}wrt\PYZus{}class}\PY{p}{(}\PY{n}{col}\PY{p}{,}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+             \PY{n}{c} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{col}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{col}\PY{p}{:}
+                 \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{i} \PY{p}{]} \PY{o}{=} \PY{n}{c}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}
+                 \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{i} \PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{c}\PY{o}{\PYZhy{}}\PY{o}{=}\PY{l+m+mi}{1}        
+         \PY{n}{tune\PYZus{}wrt\PYZus{}class}\PY{p}{(}\PY{n}{prob\PYZus{}col}\PY{p}{,}\PY{n}{df}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}print(df[prob\PYZus{}col])}
+         
+         \PY{n}{temp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{prob\PYZus{}col}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morphClass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{temp}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{skipna} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         
+         
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morphClass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morphClass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+m+mi}{224}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{el\PYZus{}dk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{217}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{el\PYZus{}mg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{undefined}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{27}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acw}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{125}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cw}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{216}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{el}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morphClass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{c+c1}{\PYZsh{}.unique()}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} 0       undefined
+         1              el
+         2              el
+         3              el
+         4              el
+         5              el
+         6              el
+         7              el
+         8              el
+         9              el
+         10      undefined
+         11             el
+         12             el
+         13             el
+         14             el
+         15      undefined
+         16           edge
+         17             el
+         18             el
+         19             el
+         20             dk
+         21             el
+         22             el
+         23      undefined
+         24      undefined
+         25           edge
+         26           edge
+         27      undefined
+         28             el
+         29      undefined
+                   {\ldots}    
+         9970           el
+         9971           el
+         9972           el
+         9973           el
+         9974           el
+         9975    undefined
+         9976           el
+         9977    undefined
+         9978    undefined
+         9979    undefined
+         9980         edge
+         9981         edge
+         9982           el
+         9983          acw
+         9984           el
+         9985          acw
+         9986    undefined
+         9987    undefined
+         9988           el
+         9989         edge
+         9990           el
+         9991    undefined
+         9992           el
+         9993    undefined
+         9994    undefined
+         9995    undefined
+         9996    undefined
+         9997           el
+         9998           el
+         9999           el
+         Name: morphClass, Length: 10000, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{sdss\PYZus{}target\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subClass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morphClass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{sdss\PYZus{}feature\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{i}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mCr4\PYZus{}u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mCr4\PYZus{}g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mCr4\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mCr4\PYZus{}i}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mCr4\PYZus{}z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}sdss = pd.DataFrame()}
+         
+         \PY{n}{sdss} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{sdss\PYZus{}target\PYZus{}col}\PY{o}{+}\PY{n}{sdss\PYZus{}feature\PYZus{}col}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{sdss\PYZus{}target\PYZus{}col}\PY{p}{:}
+             \PY{n}{sdss}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unidentified}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}features = pd.DataFrame()}
+         \PY{c+c1}{\PYZsh{}features = data[col]}
+         \PY{n}{sdss}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Con\PYZus{}U}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR50\PYZus{}u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR90\PYZus{}u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         \PY{n}{sdss}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Con\PYZus{}G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR50\PYZus{}g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR90\PYZus{}g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         \PY{n}{sdss}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Con\PYZus{}I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR50\PYZus{}i}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR90\PYZus{}i}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         \PY{n}{sdss}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Con\PYZus{}Z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR50\PYZus{}z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petroR90\PYZus{}z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         
+         \PY{n}{sdss}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}        class       subClass morphClass         u         g         r  \textbackslash{}
+         0     GALAXY   Unidentified  undefined  22.48091  19.68635  18.06919   
+         1     GALAXY   Unidentified         el  24.01885  21.31280  19.42684   
+         2     GALAXY   Unidentified         el  25.30761  21.91711  19.88564   
+         3     GALAXY      BROADLINE         el  22.02136  19.88752  18.25693   
+         4     GALAXY   Unidentified         el  23.61204  21.03769  19.25393   
+         5     GALAXY   Unidentified         el  23.38643  20.59487  18.84793   
+         6     GALAXY   Unidentified         el  21.65385  19.64868  18.09817   
+         7     GALAXY   Unidentified         el  24.00390  21.46322  19.97756   
+         8     GALAXY   Unidentified         el  22.21477  19.71939  18.07094   
+         9     GALAXY   Unidentified         el  21.85400  20.46251  18.71089   
+         10    GALAXY   Unidentified  undefined  23.60796  20.70751  18.96334   
+         11    GALAXY   Unidentified         el  21.54495  19.63653  18.17363   
+         12    GALAXY   Unidentified         el  22.57871  20.06965  18.31816   
+         13       QSO  AGN BROADLINE         el  22.51600  21.33975  19.95258   
+         14    GALAXY   Unidentified         el  25.50003  21.14153  19.36414   
+         15      STAR             F9  undefined  19.58582  18.27513  17.73832   
+         16    GALAXY    STARFORMING       edge  18.47354  16.87196  16.08880   
+         17    GALAXY   Unidentified         el  23.17962  20.30925  18.56100   
+         18    GALAXY   Unidentified         el  23.99866  20.51637  18.80328   
+         19    GALAXY   Unidentified         el  21.77868  20.59425  18.75784   
+         20      STAR             F9         dk  17.99224  16.60941  16.04843   
+         21    GALAXY   Unidentified         el  21.67226  19.45329  17.92020   
+         22    GALAXY   Unidentified         el  25.59228  21.08373  19.20071   
+         23    GALAXY    STARFORMING  undefined  19.55941  18.19646  17.66891   
+         24    GALAXY    STARFORMING  undefined  19.07596  17.20806  16.22711   
+         25    GALAXY    STARFORMING       edge  19.05684  17.74297  17.08681   
+         26    GALAXY   Unidentified       edge  19.25862  17.28733  16.20604   
+         27    GALAXY    STARFORMING  undefined  19.86198  18.31688  17.70251   
+         28    GALAXY   Unidentified         el  20.85930  18.63900  17.47717   
+         29    GALAXY    STARFORMING  undefined  19.45825  17.53825  16.51325   
+         {\ldots}      {\ldots}            {\ldots}        {\ldots}       {\ldots}       {\ldots}       {\ldots}   
+         9970  GALAXY   Unidentified         el  22.18699  19.60141  18.05688   
+         9971  GALAXY   Unidentified         el  24.24170  20.83477  19.24289   
+         9972  GALAXY   Unidentified         el  16.33119  14.25713  13.33329   
+         9973  GALAXY   Unidentified         el  16.33119  14.25713  13.33329   
+         9974  GALAXY   Unidentified         el  20.33028  18.00036  16.93215   
+         9975  GALAXY    STARFORMING  undefined  17.59485  16.10193  15.31419   
+         9976  GALAXY    STARFORMING         el  20.33028  18.00036  16.93215   
+         9977  GALAXY    STARFORMING  undefined  17.59485  16.10193  15.31419   
+         9978  GALAXY   Unidentified  undefined  19.99991  18.41320  17.72628   
+         9979  GALAXY    STARFORMING  undefined  19.99991  18.41320  17.72628   
+         9980  GALAXY   Unidentified       edge  18.85934  17.03121  16.08976   
+         9981  GALAXY            AGN       edge  18.85934  17.03121  16.08976   
+         9982  GALAXY   Unidentified         el  20.84594  18.77654  17.50196   
+         9983  GALAXY   Unidentified        acw  17.44698  15.49269  14.57435   
+         9984  GALAXY   Unidentified         el  20.84594  18.77654  17.50196   
+         9985  GALAXY   Unidentified        acw  17.44698  15.49269  14.57435   
+         9986  GALAXY      STARBURST  undefined  18.64047  17.38264  16.89824   
+         9987  GALAXY      STARBURST  undefined  18.64047  17.38264  16.89824   
+         9988  GALAXY   Unidentified         el  19.16079  17.27197  16.30150   
+         9989  GALAXY   Unidentified       edge  17.89681  15.95457  15.06299   
+         9990  GALAXY   Unidentified         el  23.71233  20.85065  19.05443   
+         9991  GALAXY   Unidentified  undefined  22.80470  21.20956  19.36639   
+         9992  GALAXY   Unidentified         el  23.71233  20.85065  19.05443   
+         9993  GALAXY      STARBURST  undefined  19.46923  18.54971  18.17872   
+         9994  GALAXY      STARBURST  undefined  19.46923  18.54971  18.17872   
+         9995  GALAXY   Unidentified  undefined  19.17759  18.20669  17.76608   
+         9996  GALAXY    STARFORMING  undefined  19.17759  18.20669  17.76608   
+         9997  GALAXY      STARBURST         el  18.97007  18.18094  17.80168   
+         9998  GALAXY   Unidentified         el  25.50433  20.91628  19.20441   
+         9999  GALAXY      STARBURST         el  18.97007  18.18094  17.80168   
+         
+                      i         z       mCr4\_u    mCr4\_g    mCr4\_r    mCr4\_i    mCr4\_z  \textbackslash{}
+         0     17.42014  17.02861     1.405466  2.335798  2.359476  2.360674  2.307583   
+         1     18.69778  18.32586 -9999.000000  2.201997  2.341340  2.336168  2.348017   
+         2     18.99690  18.63636 -9999.000000  1.958300  2.272421  2.209068  2.124241   
+         3     17.64682  17.22701     0.777974  2.424582  2.367845  2.329699  2.296175   
+         4     18.46982  17.95373    -2.139924  2.466541  2.323362  2.306854  2.282086   
+         5     18.21408  17.74901     2.533993  2.320331  2.274742  2.267465  2.251838   
+         6     17.46941  17.12340     0.000000  2.344662  2.341459  2.284424  2.309894   
+         7     19.36625  18.95468     2.223993  2.179508  2.112609  2.143960  2.293611   
+         8     17.46834  17.02670    -0.008236  2.296028  2.328942  2.336437  2.309216   
+         9     18.10838  17.72100     2.340357  2.242347  2.267682  2.237699  2.217776   
+         10    18.35070  17.88325     0.138610  2.336915  2.389261  2.280801  2.367225   
+         11    17.56967  17.10778     1.417788  2.247147  2.231008  2.247221  2.228145   
+         12    17.67691  17.32898     1.625688  2.260646  2.282403  2.298909  2.257158   
+         13    19.43013  19.09719     1.127127  2.229303  2.243557  2.151922  2.235866   
+         14    18.48174  17.99790 -9999.000000  2.085079  2.188015  2.263090  2.261699   
+         15    17.53070  17.38339     1.949957  2.143319  2.159873  2.178982  2.130519   
+         16    15.65484  15.30592     2.196744  2.166234  2.212839  2.232744  2.271082   
+         17    17.92437  17.52167     1.099262  2.287295  2.285720  2.254135  2.265585   
+         18    18.16056  17.75650     0.454619  2.268983  2.192999  2.191538  2.128118   
+         19    18.07344  17.58847     1.472090  2.398869  2.327696  2.363081  2.301394   
+         20    15.83006  15.70121     2.040702  2.038493  2.050745  2.004422  1.995514   
+         21    17.34685  17.03238     1.433086  2.313138  2.262114  2.285616  2.255678   
+         22    18.55249  18.24132    -0.536768  2.218874  2.248462  2.247639  2.229461   
+         23    17.30093  17.10678     2.100679  2.255963  2.263435  2.218033  2.248050   
+         24    15.68797  15.30157     0.715081  2.315316  2.331254  2.347477  2.384014   
+         25    16.68915  16.37508     2.000754  2.118586  2.208209  2.256540  2.318190   
+         26    15.62521  15.15385     2.220211  2.500936  2.439898  2.432726  2.413319   
+         27    17.35742  17.13007     2.527020  2.361230  2.323013  2.350961  2.346909   
+         28    16.97733  16.54683     0.880622  2.369119  2.311200  2.321788  2.340214   
+         29    15.96933  15.55560     2.117042  2.341590  2.366528  2.402934  2.508424   
+         {\ldots}        {\ldots}       {\ldots}          {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}   
+         9970  17.50655  17.15236     2.033411  2.336026  2.280971  2.274449  2.279891   
+         9971  18.37294  17.96221 -9999.000000  2.286612  2.234203  2.284922  2.276337   
+         9972  12.90197  12.55942     2.294796  2.386055  2.389308  2.368306  2.392764   
+         9973  12.90197  12.55942     2.294796  2.386055  2.389308  2.368306  2.392764   
+         9974  16.44237  16.06532     2.209236  2.363402  2.385037  2.386653  2.402500   
+         9975  14.88511  14.57388     2.180665  2.278591  2.270877  2.301994  2.320629   
+         9976  16.44237  16.06532     2.209236  2.363402  2.385037  2.386653  2.402500   
+         9977  14.88511  14.57388     2.180665  2.278591  2.270877  2.301994  2.320629   
+         9978  17.37272  17.16994     2.017021  2.352684  2.439265  2.506099  2.343987   
+         9979  17.37272  17.16994     2.017021  2.352684  2.439265  2.506099  2.343987   
+         9980  15.57254  15.17306     2.366978  2.375902  2.399355  2.415022  2.415951   
+         9981  15.57254  15.17306     2.366978  2.375902  2.399355  2.415022  2.415951   
+         9982  16.98592  16.59055     1.899856  2.259714  2.291771  2.298954  2.299290   
+         9983  14.14129  13.82524     2.538485  2.478489  2.490265  2.495564  2.496875   
+         9984  16.98592  16.59055     1.899856  2.259714  2.291771  2.298954  2.299290   
+         9985  14.14129  13.82524     2.538485  2.478489  2.490265  2.495564  2.496875   
+         9986  16.53840  16.36050     2.036714  2.143694  2.174368  2.198207  2.253312   
+         9987  16.53840  16.36050     2.036714  2.143694  2.174368  2.198207  2.253312   
+         9988  15.79492  15.41172     2.379695  2.464114  2.454405  2.454723  2.442919   
+         9989  14.60054  14.27295     2.385090  2.428465  2.444286  2.424611  2.442579   
+         9990  18.43880  18.03056     1.634476  2.268317  2.281162  2.300132  2.222169   
+         9991  18.33010  17.87795     1.741568  1.984141  2.192754  2.239866  2.319761   
+         9992  18.43880  18.03056     1.634476  2.268317  2.281162  2.300132  2.222169   
+         9993  17.89645  17.80928     2.133328  2.133413  2.158055  2.140833  2.230535   
+         9994  17.89645  17.80928     2.133328  2.133413  2.158055  2.140833  2.230535   
+         9995  17.49043  17.27678     0.497390  2.227458  2.216758  2.234074  0.644052   
+         9996  17.49043  17.27678     0.497390  2.227458  2.216758  2.234074  0.644052   
+         9997  17.49388  17.36299     2.271531  2.259596  2.322814  2.363872  2.294200   
+         9998  18.41463  17.91376 -9999.000000  2.179775  2.367679  2.416389  2.412220   
+         9999  17.49388  17.36299     2.271531  2.259596  2.322814  2.363872  2.294200   
+         
+                  Con\_U     Con\_G     Con\_I     Con\_Z  
+         0     0.765821  0.407381  0.299253  0.374484  
+         1     0.990966  0.437190  0.227071  0.494613  
+         2     0.948283  0.335008  0.359829  0.525282  
+         3     0.231886  0.356461  0.345949  0.392174  
+         4     0.779201  0.748562  0.362214  0.369450  
+         5     0.908907  0.415087  0.331072  0.341546  
+         6     0.465974  0.459323  0.349484  0.390811  
+         7     0.936765  0.475389  0.445691  0.368857  
+         8     0.565600  0.344974  0.339251  0.373602  
+         9     0.407225  0.350453  0.356870  0.410939  
+         10    0.743773  0.446301  0.309005  0.305121  
+         11    1.000000  0.349466  0.387982  0.367005  
+         12    0.864313  0.377625  0.333118  0.388884  
+         13    0.525986  0.384572  0.416451  0.280178  
+         14    0.972562  0.404285  0.345129  0.475058  
+         15    0.412865  0.476118  0.440259  0.442334  
+         16    0.482179  0.415139  0.426833  0.442480  
+         17    1.000000  0.400613  0.307730  0.368840  
+         18    1.000000  0.451313  0.353434  0.357427  
+         19    0.676814  0.504467  0.352225  0.301645  
+         20    0.491692  0.497488  0.490793  0.508572  
+         21    0.809774  0.408643  0.352696  0.358711  
+         22    0.878904  0.376666  0.345154  0.314097  
+         23    0.641472  0.468090  0.427135  0.525728  
+         24    0.413861  0.434270  0.396960  0.404538  
+         25    0.470115  0.438159  0.433442  0.457353  
+         26    0.354021  0.347328  0.333499  0.311269  
+         27    0.515598  0.403471  0.398741  0.382757  
+         28    0.490657  0.316423  0.321879  0.311596  
+         29    0.648075  0.426986  0.403437  0.411618  
+         {\ldots}        {\ldots}       {\ldots}       {\ldots}       {\ldots}  
+         9970  0.345244  0.339630  0.322444  0.398205  
+         9971  0.571248  0.328130  0.385573  0.373693  
+         9972  0.291823  0.311858  0.310748  0.314276  
+         9973  0.291823  0.311858  0.310748  0.314276  
+         9974  0.545916  0.337696  0.326726  0.335074  
+         9975  0.421520  0.413361  0.406109  0.403062  
+         9976  0.545916  0.337696  0.326726  0.335074  
+         9977  0.421520  0.413361  0.406109  0.403062  
+         9978  0.685372  0.490259  0.503183  0.567565  
+         9979  0.685372  0.490259  0.503183  0.567565  
+         9980  0.374442  0.352929  0.322135  0.335596  
+         9981  0.374442  0.352929  0.322135  0.335596  
+         9982  0.289809  0.358769  0.359140  0.363567  
+         9983  0.555173  0.385713  0.346125  0.309701  
+         9984  0.289809  0.358769  0.359140  0.363567  
+         9985  0.555173  0.385713  0.346125  0.309701  
+         9986  0.581501  0.502272  0.499773  0.468146  
+         9987  0.581501  0.502272  0.499773  0.468146  
+         9988  0.409830  0.337513  0.323083  0.352995  
+         9989  0.322505  0.325453  0.309127  0.318423  
+         9990  0.076820  0.401378  0.311051  0.396102  
+         9991  0.773076  0.634806  0.323428  0.351389  
+         9992  0.076820  0.401378  0.311051  0.396102  
+         9993  0.444857  0.407329  0.435902  0.457950  
+         9994  0.444857  0.407329  0.435902  0.457950  
+         9995  0.471514  0.479657  0.400801  0.374239  
+         9996  0.471514  0.479657  0.400801  0.374239  
+         9997  0.297333  0.315006  0.350689  0.375533  
+         9998  0.324374  0.423552  0.354855  0.368581  
+         9999  0.297333  0.315006  0.350689  0.375533  
+         
+         [10000 rows x 17 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{redshift}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Star}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GALAXY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{redshift}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Galaxy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QSO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{redshift}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QSO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{)}\PY{p}{)}
+          \PY{n}{n} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{sdss}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{subClass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{morphClass}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{palette}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{coolwarm\PYZus{}r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        IndexError                                Traceback (most recent call last)
+
+        <ipython-input-134-abd7a5d0d184> in <module>()
+          1 plt.figure(figsize=(18,18))
+    ----> 2 n = sns.pairplot(sdss[["subClass","morphClass"]],hue="class",palette="coolwarm\_r")
+          3 plt.show()
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}seaborn\textbackslash{}axisgrid.py in pairplot(data, hue, hue\_order, palette, vars, x\_vars, y\_vars, kind, diag\_kind, markers, height, aspect, dropna, plot\_kws, diag\_kws, grid\_kws, size)
+       2082                     hue\_order=hue\_order, palette=palette,
+       2083                     diag\_sharey=diag\_sharey,
+    -> 2084                     height=height, aspect=aspect, dropna=dropna, **grid\_kws)
+       2085 
+       2086     \# Add the markers here as PairGrid has figured out how many levels of the
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}seaborn\textbackslash{}axisgrid.py in \_\_init\_\_(self, data, hue, hue\_order, palette, hue\_kws, vars, x\_vars, y\_vars, diag\_sharey, height, aspect, despine, dropna, size)
+       1279 
+       1280         \# Label the axes
+    -> 1281         self.\_add\_axis\_labels()
+       1282 
+       1283         \# Sort out the hue variable
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}seaborn\textbackslash{}axisgrid.py in \_add\_axis\_labels(self)
+       1516     def \_add\_axis\_labels(self):
+       1517         """Add labels to the left and bottom Axes."""
+    -> 1518         for ax, label in zip(self.axes[-1, :], self.x\_vars):
+       1519             ax.set\_xlabel(label)
+       1520         for ax, label in zip(self.axes[:, 0], self.y\_vars):
+    
+
+        IndexError: index -1 is out of bounds for axis 0 with size 0
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 1296x1296 with 0 Axes>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<Figure size 0x0 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{c+c1}{\PYZsh{}df[\PYZsq{}subClass\PYZsq{}].unique()}
+          \PY{n}{col} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subClass}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{43}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{)}\PY{p}{)}
+          \PY{n}{j} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{colval} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{:}
+              \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{==}\PY{n}{colval}\PY{p}{[}\PY{n}{j}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{p}{]}\PY{o}{.}\PY{n}{redshift}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{n}{j}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+              \PY{n}{j}\PY{o}{\PYZhy{}}\PY{o}{=}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} array([nan, 'BROADLINE', 'AGN BROADLINE', 'F9', 'STARFORMING',
+                'STARBURST', 'T2', 'K1', 'M1', 'AGN', 'M2', 'M0', 'M3', 'G2', 'K5',
+                'M4', 'F5', 'STARBURST BROADLINE', 'L5.5', 'K7', 'F2', 'Carbon',
+                'K3', 'G0', 'A0', 'STARFORMING BROADLINE', 'A0p', 'CarbonWD',
+                'WDmagnetic', 'F2V (33256)', 'K5 (G\_19-24)', 'M5', 'K5Ve (118100)',
+                'M7', 'L5', 'M9', 'O', 'F6V (16673)', 'L9', 'G4V (32923)',
+                'Carbon\_lines', 'F0IV (81937)', 'F3/F5V (30743)'], dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{sdss}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} <seaborn.axisgrid.PairGrid at 0x1ac9651ab38>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{fig}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}ax = sns.distplot(y=df[\PYZsq{}morphClass\PYZsq{}],x=df[\PYZsq{}redshift\PYZsq{}], data=sdss)}
+          \PY{n}{col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morphClass}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{colval} \PY{o}{=} \PY{n}{sdss}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+          \PY{n}{c}\PY{o}{=}\PY{l+m+mi}{0}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{col}\PY{p}{:}
+              \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{==}\PY{n}{colval}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{redshift}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{c}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+              \PY{n}{c}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        AttributeError                            Traceback (most recent call last)
+
+        <ipython-input-106-b0ee75f1fcbb> in <module>()
+          5 c=0
+          6 for i in col:
+    ----> 7     ax = sns.distplot(df[df[col]==colval[c]].redshift, bins = 50,ax=c).set\_title(c)
+          8     c+=1
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}seaborn\textbackslash{}distributions.py in distplot(a, bins, hist, kde, rug, fit, hist\_kws, kde\_kws, rug\_kws, fit\_kws, color, vertical, norm\_hist, axlabel, label, ax)
+        196             line, = ax.plot(0, a.mean())
+        197         else:
+    --> 198             line, = ax.plot(a.mean(), 0)
+        199         color = line.get\_color()
+        200         line.remove()
+    
+
+        AttributeError: 'int' object has no attribute 'plot'
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{colval}\PY{p}{[}\PY{n}{c}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}107}]:} 'undefined'
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
